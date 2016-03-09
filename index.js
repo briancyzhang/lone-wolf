@@ -199,7 +199,7 @@ Lonewolf.prototype.deleteTransaction = function(transactionId, callback) {
 
 Lonewolf.prototype.getListings = function(options, callback)
 {
-	return this.sendGetRequest('/mls/listings/v1', options, callback);
+	return this.sendGetRequest('/mls/v1/listings/', options, callback);
 }
 
 module.exports = Lonewolf;
