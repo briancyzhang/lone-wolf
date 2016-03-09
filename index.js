@@ -29,9 +29,18 @@ Lonewolf.prototype.sendHttpRequest = function(httpMethod, path, formData, option
 
 	var deferred = Promise.pending();
 	var isJSON = false;
+	var prefix = "/wolfconnect";
+
+	if (path.indexOf("mls") >= 0)
+	{
+		prefix = "";
+	}
+
 	var url = process.env.NODE_ENV === 'production' ?
-				'https://api.globalwolfweb.com/wolfconnect' :
-				'https://api-sb.globalwolfweb.com/wolfconnect';
+				'https://api.globalwolfweb.com' :
+				'https://api-sb.globalwolfweb.com';
+
+	url = url + prefix;
 
 	if (!_.isEmpty(options)) {
 		var qp = _.pairs(options).map(function(pair) {
@@ -58,7 +67,7 @@ Lonewolf.prototype.sendHttpRequest = function(httpMethod, path, formData, option
 		url: url,
 		method: httpMethod,
 		headers: {
-			'Authorization': this.generateTokenHeader(httpMethod, '/wolfconnect' + path, requestDate, contentMD5),
+			'Authorization': this.generateTokenHeader(httpMethod, prefix + path, requestDate, contentMD5),
 			'Content-MD5': contentMD5
 		}
 	}
